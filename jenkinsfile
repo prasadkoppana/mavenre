@@ -38,7 +38,7 @@ pipeline
                  }
              }
          }
-           stage('counttest-master')
+           stage('counttest-master  ')
            {
                steps
                {
