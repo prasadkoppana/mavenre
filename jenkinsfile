@@ -21,3 +21,67 @@ pipeline
          
      }
 }
+@Library('libary')_
+
+pipeline
+{
+     agent any
+     stages
+     {
+         stage('countdownloads')
+         {
+             steps
+             {
+                 script
+                 {
+                    cicd.newgit("maven")
+                 }
+             }
+             
+         }
+          stage('countbuild')
+         {
+             steps
+             {
+                 script
+                 {
+                    cicd.newmaven()
+                 }
+             }
+             
+         }
+          stage('countdepoly')
+         {
+             steps
+             {
+                 script
+                 {
+                    cicd.newcode("declarative","172.31.31.217","testapp")
+                 }
+             }
+         }
+           stage('counttest')
+           {
+               steps
+               {
+                   script
+                   {
+                       cicd.newgit("Functionaltesting")
+                        cicd.runselenium("declarative")
+                   }
+               }
+           }
+           stage('countdevilary')
+           {
+               steps
+               {
+                   script
+                   {
+                       
+                        sh'scp /home/ubuntu/.jenkins/workspace/declarative/webapp/target/webapp.war ubuntu@:172.31.31.32:/var/lib/tomcat9/webapps/prodapp.war'
+                       
+                   }
+               }
+           }
+        }
+    }
