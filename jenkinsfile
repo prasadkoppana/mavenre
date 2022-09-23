@@ -6,7 +6,7 @@ pipeline
      agent any
      stages
      {
-         stage('countdownloads')
+         stage('countdownloads-master')
          {
              steps
              {
@@ -17,7 +17,7 @@ pipeline
              }
              
          }
-          stage('countbuild')
+          stage('countbuild-master')
          {
              steps
              {
@@ -28,7 +28,7 @@ pipeline
              }
              
          }
-          stage('countdepoly')
+          stage('countdepoly-master')
          {
              steps
              {
@@ -38,7 +38,7 @@ pipeline
                  }
              }
          }
-           stage('counttest')
+           stage('counttest-master')
            {
                steps
                {
@@ -46,18 +46,6 @@ pipeline
                    {
                        cicd.newgit("Functionaltesting")
                         cicd.runselenium("declarative")
-                   }
-               }
-           }
-           stage('countdevilary')
-           {
-               steps
-               {
-                   script
-                   {
-                       
-                        sh'scp /home/ubuntu/.jenkins/workspace/declarative/webapp/target/webapp.war ubuntu@:172.31.31.32:/var/lib/tomcat9/webapps/prodapp.war'
-                       
                    }
                }
            }
